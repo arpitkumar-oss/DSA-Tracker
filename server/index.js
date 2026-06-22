@@ -1,7 +1,10 @@
 // This is the entry point of our backend server.
 
-// Import the express library we just installed
+// Load environment variables from .env file
+require("dotenv").config();
+
 const express = require("express");
+const mongoose = require("mongoose");
 
 // Create an "app" - this represents our actual server
 const app = express();
@@ -9,9 +12,13 @@ const app = express();
 // This middleware lets our server understand JSON data sent in requests
 app.use(express.json());
 
+// Connect to MongoDB using the connection string stored in .env
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("Connected to MongoDB successfully"))
+  .catch((err) => console.error("MongoDB connection error:", err));
+
 // A simple test route.
-// When someone visits http://localhost:5000/api/health,
-// this code runs and sends back a response.
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok", message: "Server is running fine!" });
 });
