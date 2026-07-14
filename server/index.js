@@ -23,6 +23,10 @@ mongoose
 const problemRoutes = require("./routes/problemRoutes");
 app.use("/api/problems", problemRoutes);
 
+//connecting authRoutes to main server
+const authRoutes = require("./routes/authRoutes");
+app.use("/api/auth", authRoutes);
+
 // A simple test route.
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok", message: "Server is running fine!" });
