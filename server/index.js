@@ -6,6 +6,7 @@ require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
+const authMiddleware = require("./middleware/authMiddleware");
 
 // Create an "app" - this represents our actual server
 const app = express();
@@ -21,7 +22,7 @@ mongoose
 
 //connecting routes to main server
 const problemRoutes = require("./routes/problemRoutes");
-app.use("/api/problems", problemRoutes);
+app.use("/api/problems",authMiddleware, problemRoutes);
 
 //connecting authRoutes to main server
 const authRoutes = require("./routes/authRoutes");
